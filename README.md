@@ -12,7 +12,7 @@ test double that prevents unsupported interactions.
 
 Add this line to your application's Gemfile:
 
-    gem 'no_moss'
+    gem "no_moss", '~> 0.5.0', :git => 'git@github.com:livingsocial/no_moss.git', :tag => 'v0.5.0'
 
 And then execute:
 
