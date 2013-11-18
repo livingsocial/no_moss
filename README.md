@@ -1,4 +1,4 @@
-# no_moss
+# no\_moss
 
 Provides a means of defining object role APIs that should be consistent
 between test subjects (objects under test) and test doubles (AKA mock
@@ -12,7 +12,7 @@ test double that prevents unsupported interactions.
 
 Add this line to your application's Gemfile:
 
-    gem "no_moss", '~> 0.5.0', :git => 'git@github.com:livingsocial/no_moss.git', :tag => 'v0.5.0'
+    gem "no\_moss", '~> 0.5.0', :git => 'git@github.com:livingsocial/no\_moss.git', :tag => 'v0.5.0'
 
 And then execute:
 
@@ -20,26 +20,63 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install no_moss
+    $ gem install no\_moss
 
 ## Usage
 
-Define a Role API using the NoMoss.define_role method as follows:
+### Basic
 
-    PersonRole = NoMoss.define_role do
+Define a Role API using the NoMoss.define\_role method as follows:
+
+    PersonRole = NoMoss.define\_role do
       implements :id, :name, :email
     end
 
 Identify any of a role API's methods not implemented by an object
 (usually for unit testing purposes) using the role's
-unimplemented_methods_of method as follows:
+unimplemented\_methods\_of method as follows:
 
-    PersonRole.unimplemented_methods_of(object)
+    PersonRole.unimplemented\_methods\_of(object)
 
 Define a Role-restricted proxy to a test subject (object under
 test) or a test double (AKA mock object) as follows:
 
-    PersonRole.restrict(test_double)
+    PersonRole.restrict(test\_double)
+
+### Rspec
+
+Enable no\_moss rspec matchers by adding the following to your
+spec\_helper file:
+
+    require 'no_moss/rspec/matchers'
+
+... or for no\_moss rspec matchers and shared examples, ...
+
+    require 'no_moss/rspec/all'
+
+To verify that an object under test implements a role API...
+
+    it "acts like a person" do
+      expect( someobject ).to play_role( RoleAPIs::Person )
+    end
+
+To use a shared example to verify that the current subject implements
+a role API...
+
+    subject{ Fruit }
+    include_examples "plays the role of", RoleAPIs::FruitRepository
+
+To enforce the role API for an object under test...
+
+    subject{ FruitRepository.restrict(Fruit) }
+
+To enforce the role API for a test double (AKA mock object) being used
+as a dependency...
+
+    let(:fruit_repository){ double(:fruit_repository) }
+    subject{ Farm.new(
+      :fruit_repository => RoleAPIs::FruitRepository.restrict(fruit_repository)
+    ) }
 
 ## Contributing
 
