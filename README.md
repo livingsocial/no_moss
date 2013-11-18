@@ -12,7 +12,7 @@ test double that prevents unsupported interactions.
 
 Add this line to your application's Gemfile:
 
-    gem "no\_moss", '~> 0.5.0', :git => 'git@github.com:livingsocial/no\_moss.git', :tag => 'v0.5.0'
+    gem "no_moss"
 
 And then execute:
 
@@ -20,7 +20,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install no\_moss
+    $ gem install no_moss
 
 ## Usage
 
@@ -28,7 +28,7 @@ Or install it yourself as:
 
 Define a Role API using the NoMoss.define\_role method as follows:
 
-    PersonRole = NoMoss.define\_role do
+    PersonRole = NoMoss.define_role do
       implements :id, :name, :email
     end
 
@@ -36,12 +36,12 @@ Identify any of a role API's methods not implemented by an object
 (usually for unit testing purposes) using the role's
 unimplemented\_methods\_of method as follows:
 
-    PersonRole.unimplemented\_methods\_of(object)
+    PersonRole.unimplemented_methods_of(object)
 
 Define a Role-restricted proxy to a test subject (object under
 test) or a test double (AKA mock object) as follows:
 
-    PersonRole.restrict(test\_double)
+    PersonRole.restrict(test_double)
 
 ### Rspec
 
