@@ -1,14 +1,40 @@
-RSpec::Matchers.define :play_role do |role|
-  match do |actual|
-    @methods_missing = role.methods_missing_from(actual)
-    @methods_missing == []
-  end
+module NoMoss
+  module CustomMatchers
+    class PlayRole
+      attr_reader :expected_role, :actual
 
-  failure_message_for_should do |actual|
-    <<-EOF
+      def initialize(expected_role)
+        @expected_role = expected_role
+      end
+
+      def matches?(actual)
+        @actual = actual
+        role_methods_missing_from_target.empty?
+      end
+
+      def failure_message_for_should
+        <<-EOF
 expected #{actual.inspect}
-to play the role of #{role},
-but it is missing the following method(s): #{@methods_missing.join(', ')}
-    EOF
+to play the role of #{expected_role},
+but it is missing the following method(s): #{role_methods_missing_from_target.join(', ')}
+        EOF
+      end
+
+      private
+
+      def role_methods_missing_from_target
+        expected_role.methods_missing_from(actual)
+      end
+    end
+
+    module SpecHelpers
+      def play_role(expected_role)
+        PlayRole.new(expected_role)
+      end
+    end
   end
+end
+
+RSpec::configure do |config|
+  include NoMoss::CustomMatchers::SpecHelpers
 end
