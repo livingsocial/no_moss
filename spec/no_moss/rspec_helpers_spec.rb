@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'no_moss/rspec/all'
+require 'no_moss/integration/rspec'
 require_relative '../support/no_moss_tests'
 
 describe 'RSpec helpers' do

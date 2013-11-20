@@ -26,15 +26,5 @@ but it is missing the following method(s): #{role_methods_missing_from_target.jo
         expected_role.methods_missing_from(actual)
       end
     end
-
-    module SpecHelpers
-      def play_role(expected_role)
-        PlayRole.new(expected_role)
-      end
-    end
   end
-end
-
-RSpec::configure do |config|
-  include NoMoss::CustomMatchers::SpecHelpers
 end
