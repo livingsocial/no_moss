@@ -8,11 +8,11 @@ describe 'RSpec helpers' do
   let(:cat)    { NoMossTests::Agriculture::Animals::Cat.new }
 
   describe "custom matcher" do
-    it 'should know when an object plays a role' do
+    it 'knows when an object plays a role' do
       expect(yak).to play_role(NoMossTests::Agriculture::Roles::Cattle)
     end
 
-    it 'should have a reasonable error message when an object does not play a role' do
+    it 'has a reasonable error message when an object does not play a role' do
       caught_exception = nil
       begin
         expect(cat).to play_role(NoMossTests::Agriculture::Roles::Cattle)
