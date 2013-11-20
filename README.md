@@ -43,6 +43,19 @@ test) or a test double (AKA mock object) as follows:
 
     PersonRole.restrict(test_double)
 
+### Test::Unit
+
+Enable no\_moss rspec matchers by adding the following to your
+test helper file:
+
+    require 'no_moss/test/unit/assertions'
+
+To verify that an object under test implements a role API...
+
+    def test_acts_like_a_person
+      assert_plays_role RoleAPIs::Person, @someobject
+    end
+
 ### Rspec
 
 Enable no\_moss rspec matchers by adding the following to your
