@@ -7,7 +7,7 @@ module NoMoss
     end
 
     def methods_missing_from(object)
-      _api_methods - object.methods.map(&:to_sym)
+      _api_methods.reject{|m| object.respond_to?(m) }
     end
 
     def restrict(object)
